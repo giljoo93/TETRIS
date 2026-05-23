@@ -11,9 +11,9 @@ const BLOCK = 30;
 const canvas = document.getElementById("board");
 const ctx = canvas.getContext("2d");
 const nextCanvas = document.getElementById("nextMino");
-const nextCtx = canvas.getContext("2d");
+const nextCtx = nextCanvas.getContext("2d");
 const holdCanvas = document.getElementById("hold");
-const holdCtx = canvas.getContext("2d");
+const holdCtx = holdCanvas.getContext("2d");
 
 // side status let
 let score = document.getElementById("score");
@@ -22,6 +22,8 @@ let line = document.getElementById('line');
 
 // overlay status let
 let overlay = document.getElementById("overlay");
+let running = false;
+let pushed = false;
 
 // Tetris Mino setting
 // maybe rainbow color..
@@ -66,8 +68,8 @@ const MINO = {
          [1, 1, 1],
          [0, 0, 0]],
 
-        [[0, 1, 0]
-         [0, 1, 0]
+        [[0, 1, 0],
+         [0, 1, 0],
          [0, 1, 1]],
 
         [[0, 0, 0],
@@ -78,7 +80,7 @@ const MINO = {
          [0, 1, 0],
          [0, 1, 0]]],
 
-    D: [[[1, 1]
+    D: [[[1, 1],
          [1, 1]]],
 
     E: [[[1, 1, 0],
@@ -132,4 +134,63 @@ function drawMino(ctx, x, y, mino, color) {
     }
 }
 
-// drawMino(ctx, 0, 0, MINO.A[0], "A",); 블록 그려짐
+// drawMino(ctx, 5, 16, MINO.A[0], "A"); 그려짐
+// drawMino(nextCtx, 1, 0, MINO.G[2], "G"); 그려짐
+
+// board 선언
+let board = [];
+    
+    for (let y = 0; y < ROWS; y++) {
+        board[y] = [];
+        for (let x = 0; x < COLS; x++) {
+            board[y][x] = 0;
+        }
+    }
+
+
+function drawBoard() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (let y = 0; y < ROWS; y++) {
+        for (let x = 0; x < COLS; x++) {
+            if (board[y][x] !== 0) {
+                drawBlock(ctx, x, y, board[y][x]);
+            }
+        }
+    }
+}
+
+// board[5][3] = "A";
+// board[7][4] = "D";
+// drawBoard();
+
+
+let minoObject = {type: "G", rotation: 0, x: 6, y: 0};
+
+function render() {
+    drawBoard();
+    drawMino(ctx,
+             minoObject.x,
+             minoObject.y,
+             MINO[minoObject.type][minoObject.rotation],
+             minoObject.type);
+}
+render();
+minoObject = {type : "G", rotation: 1, x: 6, y:1};
+render();
+
+
+document.addEventListener("keydown", function(e) {
+    switch(e.key) {
+        case "ArrowLeft" :
+            minoObject.x--;
+            break;
+        case "ArrowRight" :
+            minoObject.x++;
+            break;
+        case "ArrowDown" :
+            minoObject.y++;
+            break;
+    }
+    render();
+});
