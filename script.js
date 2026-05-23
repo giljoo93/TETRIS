@@ -4,16 +4,16 @@
 // game screeen section const
 const COLS = 10;
 const ROWS = 20;
-const VLOCK = 30;
+const BLOCK = 30;
 
 
 // canvas section const
 const canvas = document.getElementById("board");
-const ctx = canvas.getContent("2d");
+const ctx = canvas.getContext("2d");
 const nextCanvas = document.getElementById("nextMino");
-const nextCtx = document.getElementById("2d");
+const nextCtx = canvas.getContext("2d");
 const holdCanvas = document.getElementById("hold");
-const holdCtx = document.getElementById("2d");
+const holdCtx = canvas.getContext("2d");
 
 // side status let
 let score = document.getElementById("score");
@@ -112,7 +112,24 @@ const MINO = {
         [[0, 1, 0],
          [1, 1, 0],
          [0, 1, 0]]]
-        
+}
 
+
+function drawBlock(ctx, x, y, color, size = BLOCK) {
+    ctx.fillStyle = MINO_COLORS[color];
+    ctx.fillRect(x * size, y * size, size, size);
 
 }
+// drawBlock(ctx, 0, 0, "D"); 단일 그려짐
+
+function drawMino(ctx, x, y, mino, color) {
+    for (let row = 0; row < mino.length; row++){
+        for (let col = 0; col < mino[row].length; col++) {
+            if (mino[row][col] == 1) {
+                drawBlock(ctx, col + x, row + y, color);
+            }
+        }
+    }
+}
+
+// drawMino(ctx, 0, 0, MINO.A[0], "A",); 블록 그려짐
