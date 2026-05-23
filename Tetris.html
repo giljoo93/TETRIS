@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TETRIS</title>
+</head>
+<body>
+
+
+    <!-- body section -->
+    <div id="game">
+
+        <!-- header section -->
+        <header>
+
+            <h1>TETRIS</h1>
+            <p>Create by : 이길주 [KIT 20260137]</p>
+
+        </header>
+
+        <!-- main section -->
+        <main class="board-area">
+            <!-- game canvas section -->
+            <div class="canvas-wrap">
+                <canvas id="board" width="300" height="600"></canvas>
+
+                <!-- overlay section -->
+                 <div class="overlay">
+                    <h2>TETRIS</h2>
+                    <p>시작하려면 버튼을 누르거나 Enter를 누르세요.</p>
+                    <button>게임 시작</button>
+                 </div>
+            </div>
+
+            <!-- status board section -->
+            <side class="side">
+                <div>
+                    <h3>점수</h3>
+                    <p class="score">0</p>
+                </div>
+                <div>
+                    <h3>레벨</h3>
+                    <p class="level">0</p>
+                </div>
+                <div>
+                    <h3>라인</h3>
+                    <p class="line">0</p>
+                </div>
+                <div>
+                    <h3>다음 미노</h3>
+                    <canvas id="nextMino" width="120" height="120"></canvas>
+                </div>
+                <div>
+                    <h3>홀드</h3>
+                    <canvas id="hold" width="120" height="120"></canvas>
+                </div>
+            </side>
+        </main>
+
+        <!-- footer section -->
+        <footer class="controlInfo">
+            <P>← → 이동</P>
+            <P>z 회전</P>
+            <P>↓ 내리기</P>
+            <P>↑ 한번에 내리기</P>
+            <P>x 홀드</P>
+            <P>p 일시정지</P>
+        </footer>
+
+    </div>
+
+
+
+</body>
+</html>
