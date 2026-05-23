@@ -147,7 +147,7 @@ let board = [];
         }
     }
 
-
+// 
 function drawBoard() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -164,9 +164,11 @@ function drawBoard() {
 // board[7][4] = "D";
 // drawBoard();
 
-
+// mino object 임시 생성
 let minoObject = {type: "G", rotation: 0, x: 6, y: 0};
 
+
+// render function ----
 function render() {
     drawBoard();
     drawMino(ctx,
@@ -175,22 +177,33 @@ function render() {
              MINO[minoObject.type][minoObject.rotation],
              minoObject.type);
 }
-render();
+// render();
 
 render();
 
-
+//  key Eevent
 document.addEventListener("keydown", function(e) {
+    
+    let shape = MINO[minoObject.type][minoObject.rotation];
     switch(e.key) {
         case "ArrowLeft" :
-            minoObject.x--;
+            if (!collison(shape, minoObject.x -1, minoObject.y)) {
+                minoObject.x--;
+            }
             break;
+
         case "ArrowRight" :
-            minoObject.x++;
+            if (!collison(shape, minoObject.x +1, minoObject.y)) {
+                minoObject.x++;
+            }            
             break;
+
         case "ArrowDown" :
-            minoObject.y++;
+            if (!collison(shape, minoObject.x, minoObject.y +1)) {
+                minoObject.y++;
+            }
             break;
+
         case "z" :
             let rotateN = MINO[minoObject.type].length;
             minoObject.rotation = (minoObject.rotation +1) % rotateN;
@@ -198,3 +211,24 @@ document.addEventListener("keydown", function(e) {
     }
     render();
 });
+
+// collison validate check
+function collison(mino, x, y) {
+    for (let row = 0; row < mino.length; row++) {
+        for (let col = 0; col <mino[row].length; col++) {
+            if (mino[row][col] == 1) {
+                let boardX = col + x;
+                let boardY = row + y;
+
+                if (boardX <0 || boardX >= COLS || boardY >= ROWS) {
+                    return true;
+                }
+
+                if (board[boardY][boardX] != 0) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
