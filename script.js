@@ -176,7 +176,7 @@ function render() {
              minoObject.type);
 }
 render();
-minoObject = {type : "G", rotation: 1, x: 6, y:1};
+
 render();
 
 
@@ -190,6 +190,10 @@ document.addEventListener("keydown", function(e) {
             break;
         case "ArrowDown" :
             minoObject.y++;
+            break;
+        case "z" :
+            let rotateN = MINO[minoObject.type].length;
+            minoObject.rotation = (minoObject.rotation +1) % rotateN;
             break;
     }
     render();
