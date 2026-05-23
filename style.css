@@ -1,0 +1,157 @@
+/* ===== 기본 리셋 ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0f1117;
+    color: #e6e6e6;
+    font-family: "Segoe UI", "Malgun Gothic", sans-serif;
+}
+
+/* ===== 전체 게임 컨테이너 ===== */
+#game {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 24px;
+    background: #161922;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* ===== 헤더 ===== */
+header {
+    text-align: center;
+}
+
+header h1 {
+    font-size: 36px;
+    letter-spacing: 6px;
+    color: #4ec1ff;
+}
+
+header p {
+    margin-top: 6px;
+    font-size: 13px;
+    color: #8a92a6;
+}
+
+/* ===== 메인 (보드 + 사이드) ===== */
+.board-area {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+/* ===== 캔버스 영역 ===== */
+.canvas-wrap {
+    position: relative;
+}
+
+#board {
+    display: block;
+    background: #0a0c12;
+    border: 2px solid #2a2f3d;
+    border-radius: 8px;
+}
+
+/* ===== 시작/일시정지 오버레이 ===== */
+.overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    background: rgba(10, 12, 18, 0.85);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.overlay h2 {
+    font-size: 32px;
+    letter-spacing: 4px;
+    color: #4ec1ff;
+}
+
+.overlay p {
+    font-size: 14px;
+    color: #b6bdcc;
+}
+
+.overlay button {
+    padding: 12px 28px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #0a0c12;
+    background: #4ec1ff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.overlay button:hover {
+    background: #6fd0ff;
+}
+
+.overlay button:active {
+    transform: scale(0.96);
+}
+
+/* ===== side (점수/레벨/라인/다음/홀드) ===== */
+.side {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 150px;
+}
+
+.side > div {
+    background: #1e2230;
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.side h3 {
+    font-size: 13px;
+    color: #8a92a6;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.side {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+#nextMino,
+#hold {
+    display: block;
+    margin: 0 auto;
+    background: #0a0c12;
+    border-radius: 6px;
+}
+
+/* ===== footer (조작 안내) ===== */
+.controlInfo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 18px;
+}
+
+.controlInfo p {
+    font-size: 13px;
+    color: #8a92a6;
+}
