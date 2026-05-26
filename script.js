@@ -206,7 +206,25 @@ document.addEventListener("keydown", function(e) {
 
         case "z" :
             let rotateN = MINO[minoObject.type].length;
-            minoObject.rotation = (minoObject.rotation +1) % rotateN;
+            let nextRotation = minoObject.rotation = (minoObject.rotation +1) % rotateN;
+            let nextMino = MINO[minoObject.type][nextRotation];
+
+            if (!collison(nextMino, minoObject.x, minoObject.y)) {
+                minoObject.rotation = nextRotation;
+            } else if (!collison(nextMino, minoObject.x -1, minoObject.y)) {
+                minoObject.x--;
+                minoObject.rotation = nextRotation;
+            } else if (!collison(nextMino, minoObject.x +1, minoObject.y)) {
+                minoObject.x++;
+                minoObject.rotation = nextRotation;
+            } else if (!collison(nextMino, minoObject.x, minoObject.y -1)) {
+                minoObject.y--;
+                minoObject.rotation = nextRotation;
+            } else if (!collison(nextMino, minoObject.x, minoObject.y +1)) {
+                minoObject.y++;
+                minoObject.rotation = nextRotation;
+            }
+            
             break;
     }
     render();
