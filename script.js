@@ -21,7 +21,8 @@ let level = document.getElementById("level");
 let line = document.getElementById('line');
 
 // overlay status let
-let overlay = document.getElementById("overlay");
+const startBtn = document.getElementById('startBtn');
+const overlay = document.getElementById("overlay");
 let running = false;
 let pushed = false;
 
@@ -181,7 +182,7 @@ function render() {
 
 render();
 
-//  key Eevent
+//  key Eevent + collision 처리 해뒀음 
 document.addEventListener("keydown", function(e) {
     
     let shape = MINO[minoObject.type][minoObject.rotation];
@@ -250,3 +251,45 @@ function collison(mino, x, y) {
     }
     return false;
 }
+
+// game start Btn & hide overlay
+startBtn.addEventListener('click', function(){
+    
+    if(running != true){
+        running = true;
+    }else{
+        running = false;
+    }
+
+    if (running === true) {
+        overlay.classList.add('hidden');
+        update();
+    } else {
+        overlay.classList.remove('hidden');
+    }
+
+});
+
+// make games flow
+let lastTime = 0;
+let dropCounter = 0;
+let dropInterval = 1000;
+
+function update(time = 0) {
+    const deltaTime = time - lastTime;
+    
+    lastTime = time;
+
+    dropCounter = dropCounter + deltaTime;
+    
+
+    let shape = MINO[minoObject.type][minoObject.rotation];
+    if (dropCounter > dropInterval) {
+        if (!collison(shape, minoObject.x, minoObject.y +1)) {
+                minoObject.y++;}
+        
+        dropCounter = 0;
+    }
+    render();
+    requestAnimationFrame(update);
+    }

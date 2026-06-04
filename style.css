@@ -76,6 +76,11 @@ header p {
     text-align: center;
 }
 
+
+.overlay.hidden {
+    display: none !important;
+}
+
 .overlay h2 {
     font-size: 32px;
     letter-spacing: 4px;
