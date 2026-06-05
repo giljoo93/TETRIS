@@ -286,10 +286,42 @@ function update(time = 0) {
     let shape = MINO[minoObject.type][minoObject.rotation];
     if (dropCounter > dropInterval) {
         if (!collison(shape, minoObject.x, minoObject.y +1)) {
-                minoObject.y++;}
+                minoObject.y++;
+            }
+            else {
+                freeze();
+                respawn();
+            }
         
         dropCounter = 0;
     }
+    
     render();
     requestAnimationFrame(update);
+
+    }
+
+
+    function freeze() {
+        let shape = MINO[minoObject.type][minoObject.rotation];
+
+        for (let row = 0; row < shape.length; row++) {
+            for (let col = 0; col < shape[row].length; col++) {
+                if (shape[row][col] === 1) {
+                    let boardY = row + minoObject.y;
+                    let boardX = col + minoObject.x;
+
+                    board[boardY][boardX] = minoObject.type;
+                }
+            }
+        }
+    }
+
+    function respawn() {
+
+        minoObject.type = "A";
+
+        minoObject.x = 4;
+        minoObject.y = 0;
+        minoObject.rotation = 0;
     }
