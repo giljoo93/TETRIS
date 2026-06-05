@@ -139,6 +139,7 @@ function drawMino(ctx, x, y, mino, color) {
 // drawMino(nextCtx, 1, 0, MINO.G[2], "G"); 그려짐
 
 // board 선언
+let minoSets = [];
 let board = [];
     
     for (let y = 0; y < ROWS; y++) {
@@ -166,8 +167,9 @@ function drawBoard() {
 // drawBoard();
 
 // mino object 임시 생성
-let minoObject = {type: "G", rotation: 0, x: 6, y: 0};
-
+// let minoObject = {type: "G", rotation: 0, x: 6, y: 0};
+let minoObject = {type: getNextMino(), rotation: 0, x: 4, y: 0};
+let nextMino = getNextMino();
 
 // render function ----
 function render() {
@@ -263,6 +265,7 @@ startBtn.addEventListener('click', function(){
 
     if (running === true) {
         overlay.classList.add('hidden');
+        drawNextMino();
         update();
     } else {
         overlay.classList.remove('hidden');
@@ -290,6 +293,7 @@ function update(time = 0) {
             }
             else {
                 freeze();
+                clearLine();
                 respawn();
             }
         
@@ -299,29 +303,75 @@ function update(time = 0) {
     render();
     requestAnimationFrame(update);
 
-    }
+}
 
 
-    function freeze() {
-        let shape = MINO[minoObject.type][minoObject.rotation];
+function freeze() {
+    let shape = MINO[minoObject.type][minoObject.rotation];
 
-        for (let row = 0; row < shape.length; row++) {
-            for (let col = 0; col < shape[row].length; col++) {
-                if (shape[row][col] === 1) {
-                    let boardY = row + minoObject.y;
-                    let boardX = col + minoObject.x;
+    for (let row = 0; row < shape.length; row++) {
+        for (let col = 0; col < shape[row].length; col++) {
+            if (shape[row][col] === 1) {
+                let boardY = row + minoObject.y;
+                let boardX = col + minoObject.x;
 
-                    board[boardY][boardX] = minoObject.type;
-                }
+                board[boardY][boardX] = minoObject.type;
             }
         }
     }
+}
 
-    function respawn() {
+function respawn() {
 
-        minoObject.type = "A";
+    minoObject.type = nextMino;
 
-        minoObject.x = 4;
-        minoObject.y = 0;
-        minoObject.rotation = 0;
+    minoObject.x = 4;
+    minoObject.y = 0;
+    minoObject.rotation = 0;
+
+    nextMino = getNextMino();
+
+    drawNextMino();
+}
+
+
+
+
+function getNextMino() {
+    if (minoSets.length === 0) {
+        let types = ['A','B','C','D','E','F','G'];
+
+        while (types.length > 0) {
+            let randomMix = Math.random() * types.length;
+            minoSets.push(types.splice(randomMix, 1)[0]);
+        }
     }
+
+    return minoSets.shift();
+}
+
+// nextMinoCanvas
+
+function drawNextMino() {
+    nextCtx.clearRect(0, 0, nextCanvas.width, nextCanvas.height);
+
+    let shape = MINO[nextMino][0];
+
+    let offsetX = 1;
+    let offsetY = 1;
+
+    drawMino(nextCtx, offsetX, offsetY, shape, nextMino);
+}
+
+function clearLine() {
+
+    for (let y = ROWS - 1; y >= 0; y--) {
+        
+        if (board[y].every(value => value !== 0)) {
+            
+            board.splice(y, 1);
+            board.unshift(new Array(COLS).fill(0));
+            y++;
+        }
+    }
+}
