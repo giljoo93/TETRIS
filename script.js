@@ -192,6 +192,7 @@ document.addEventListener("keydown", function(e) {
         case "ArrowLeft" :
             if (!collison(shape, minoObject.x -1, minoObject.y)) {
                 minoObject.x--;
+
             }
             break;
 
@@ -225,11 +226,12 @@ document.addEventListener("keydown", function(e) {
 
             if (!collison(nextMino, minoObject.x, minoObject.y)) {
                 minoObject.rotation = nextRotation;
-            } else if (!collison(nextMino, minoObject.x -1, minoObject.y)) {
-                minoObject.x--;
+            } else if (!collison(nextMino, minoObject.x -2, minoObject.y)) {
+                minoObject.x += -2; //'A' type collider
                 minoObject.rotation = nextRotation;
+                    
             } else if (!collison(nextMino, minoObject.x +1, minoObject.y)) {
-                minoObject.x++;
+                minoObject.x += +1;
                 minoObject.rotation = nextRotation;
             } else if (!collison(nextMino, minoObject.x, minoObject.y -1)) {
                 minoObject.y--;
