@@ -198,15 +198,26 @@ document.addEventListener("keydown", function(e) {
         case "ArrowRight" :
             if (!collison(shape, minoObject.x +1, minoObject.y)) {
                 minoObject.x++;
-            }            
+            }        
+            
             break;
 
         case "ArrowDown" :
             if (!collison(shape, minoObject.x, minoObject.y +1)) {
                 minoObject.y++;
             }
+
             break;
 
+        case "ArrowUp" :
+            while (!collison(shape, minoObject.x, minoObject.y +1)) {
+                minoObject.y++;
+            }
+            freeze();
+            clearLine();
+            respawn();
+            break;
+        
         case "z" :
             let rotateN = MINO[minoObject.type].length;
             let nextRotation = minoObject.rotation = (minoObject.rotation +1) % rotateN;
@@ -372,6 +383,8 @@ function clearLine() {
             board.splice(y, 1);
             board.unshift(new Array(COLS).fill(0));
             y++;
+            score = score + 1;
         }
     }
 }
+
