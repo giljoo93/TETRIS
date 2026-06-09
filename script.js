@@ -397,3 +397,9 @@ function clearLine() {
         }
     }
 }
+
+function gameover() {
+    if (board[4] == 1){
+        // gameover
+    }
+}

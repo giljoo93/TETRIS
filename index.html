@@ -3,75 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TETRIS_KIT</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
 </head>
 <body>
+    
+<a href="tetris.html">Go to 'TETRIS'</a>
+
+<p>1학기 WEB 수업 프로젝트입니다.</p>
+
+<p>HTML, CSS, JAVASCRIPT 를 이용한 간단한 테트리스 게임을 구현해보았습니다.</p>
+
+<p>HTML과 CSS는 심플한 느낌으로 구조하고</p>
+
+<p>JAVASCRIPT에 테트리스의 전체적인 로직을 구현하는 것에 집중하였습니다.</p>
 
 
-    <!-- body section -->
-    <div id="game">
+<p> release note </p>
 
-        <!-- header section -->
-        <header>
-
-            <h1>TETRIS</h1>
-            <p>Create by : 이길주 [KIT 20260137]</p>
-
-        </header>
-
-        <!-- main section -->
-        <main class="board-area">
-            <!-- game canvas section -->
-            <div class="canvas-wrap">
-                <canvas id="board" width="300" height="600"></canvas>
-
-                <!-- overlay section -->
-                 <div id="overlay" class="overlay">
-                    <h2>TETRIS</h2>
-                    <p>Play with press 'Enter'</p>
-                    <button id="startBtn">게임 시작</button>
-                 </div>
-            </div>
-
-            <!-- status board section -->
-            <side class="side">
-                <div>
-                    <h3>점수</h3>
-                    <p id="score" class="score">0</p>
-                </div>
-                <div>
-                    <h3>레벨</h3>
-                    <p id="level" class="level">0</p>
-                </div>
-                <div>
-                    <h3>라인</h3>
-                    <p id="line" class="line">0</p>
-                </div>
-                <div>
-                    <h3>다음 미노</h3>
-                    <canvas id="nextMino" width="120" height="120"></canvas>
-                </div>
-                <div>
-                    <h3>홀드</h3>
-                    <canvas id="hold" width="120" height="120"></canvas>
-                </div>
-            </side>
-        </main>
-
-        <!-- footer section -->
-        <footer class="controlInfo">
-            <P>← → 이동</P>
-            <P>z 회전</P>
-            <P>↓ 내리기</P>
-            <P>↑ 한번에 내리기</P>
-            <P>x 홀드</P>
-            <P>p 일시정지</P>
-        </footer>
-
-    </div>
-
-<script src="script.js"></script>
+<li>
+    <ol>board 구조화 완료</ol>
+    <ol>mino 구조화 완료</ol>
+    <ol>mino set 구조화 완료</ol>
+    <ol>canvas 활용하여 draw()함수 구조화 완료</ol>
+    <ol>mino 객체 type 바탕으로 drawMino() 구조화 완료</ol>
+    <ol>eventListner, key 매핑 완료 : hold 미완성</ol>
+    <ol>rotate, up key시에 안정성 validate check 완료</ol>
+    <ol>colider 충돌 판정 구조화 완료</ol>
+    <ol>deltatime 바탕으로 게임의 time flow 구현 완료</ol>
+    <ol>minoObject의 freeze(보더 값에 붙이기), respawn(4,0) 구현완료</ol>
+    <ol>board읽어서 line clear 함수 구현 완료</ol>
+    <ol>git pages로 배포작업 완료</ol>
+    <ol>score 기능, hold 기능 지속적으로 추가 예정</ol>
+    </li>
 
 </body>
 </html>
