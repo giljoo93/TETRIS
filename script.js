@@ -280,8 +280,15 @@ startBtn.addEventListener('click', function(){
 
     if (running === true) {
         overlay.classList.add('hidden');
+               
+        for (let y = 0; y < ROWS; y++){
+            for (let x = 0; x < COLS; x++){
+            board[y][x] = 0;
+            }
+        }
         drawNextMino();
         update();
+        
     } else {
         overlay.classList.remove('hidden');
     }
