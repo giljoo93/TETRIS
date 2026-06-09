@@ -207,6 +207,15 @@ document.addEventListener("keydown", function(e) {
             }
             break;
 
+        case "ArrowUp" :
+            while (!collison(shape, minoObject.x, minoObject.y +1)) {
+                minoObject.y++;
+            }
+            freeze();
+            clearLine();
+            respawn();
+            break;
+
         case "x" :
             if (trade != true) {
 
