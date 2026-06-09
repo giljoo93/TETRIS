@@ -294,6 +294,7 @@ let dropCounter = 0;
 let dropInterval = 1000;
 
 function update(time = 0) {
+    if(!running) return;
     const deltaTime = time - lastTime;
     
     lastTime = time;
@@ -345,7 +346,9 @@ function respawn() {
     minoObject.rotation = 0;
 
     nextMino = getNextMino();
-
+    if(board[0][4] !== 0){ running = false;
+                           overlay.classList.remove('hidden');
+                           ctx.clearRect(0,0,canvas.width,canvas.height);}
     drawNextMino();
 }
 
@@ -395,11 +398,5 @@ function clearLine() {
             board.unshift(new Array(COLS).fill(0));
             y++;
         }
-    }
-}
-
-function gameover() {
-    if (board[4] == 1){
-        // gameover
     }
 }
