@@ -29,7 +29,7 @@ let pushed = false;
 // Tetris Mino setting
 // maybe rainbow color..
 const MINO_COLORS = {
-    A: "rgba(245, 0, 0, 0.96)",
+    A: "rgba(253, 7, 7, 0.96)",
     B: "rgba(240, 88, 0, 0.93)",
     C: "rgba(252, 248, 9, 0.93)",
     D: "rgba(0, 204, 0, 0.93)",
@@ -186,28 +186,25 @@ render();
 
 //  key Eevent + collision 처리 해뒀음 
 document.addEventListener("keydown", function(e) {
-    
+    let trade = false;
     let shape = MINO[minoObject.type][minoObject.rotation];
     switch(e.key) {
         case "ArrowLeft" :
             if (!collison(shape, minoObject.x -1, minoObject.y)) {
                 minoObject.x--;
-
             }
             break;
 
         case "ArrowRight" :
             if (!collison(shape, minoObject.x +1, minoObject.y)) {
                 minoObject.x++;
-            }        
-            
+            }            
             break;
 
         case "ArrowDown" :
             if (!collison(shape, minoObject.x, minoObject.y +1)) {
                 minoObject.y++;
             }
-
             break;
 
         case "ArrowUp" :
@@ -218,7 +215,13 @@ document.addEventListener("keydown", function(e) {
             clearLine();
             respawn();
             break;
-        
+
+        case "x" :
+            if (trade != true) {
+
+            }
+            break;
+
         case "z" :
             let rotateN = MINO[minoObject.type].length;
             let nextRotation = minoObject.rotation = (minoObject.rotation +1) % rotateN;
@@ -226,12 +229,11 @@ document.addEventListener("keydown", function(e) {
 
             if (!collison(nextMino, minoObject.x, minoObject.y)) {
                 minoObject.rotation = nextRotation;
-            } else if (!collison(nextMino, minoObject.x -2, minoObject.y)) {
-                minoObject.x += -2; //'A' type collider
+            } else if (!collison(nextMino, minoObject.x -1, minoObject.y)) {
+                minoObject.x--;
                 minoObject.rotation = nextRotation;
-                    
             } else if (!collison(nextMino, minoObject.x +1, minoObject.y)) {
-                minoObject.x += +1;
+                minoObject.x++;
                 minoObject.rotation = nextRotation;
             } else if (!collison(nextMino, minoObject.x, minoObject.y -1)) {
                 minoObject.y--;
@@ -278,8 +280,15 @@ startBtn.addEventListener('click', function(){
 
     if (running === true) {
         overlay.classList.add('hidden');
+               
+        for (let y = 0; y < ROWS; y++){
+            for (let x = 0; x < COLS; x++){
+            board[y][x] = 0;
+            }
+        }
         drawNextMino();
         update();
+        
     } else {
         overlay.classList.remove('hidden');
     }
@@ -292,6 +301,7 @@ let dropCounter = 0;
 let dropInterval = 1000;
 
 function update(time = 0) {
+    if(!running) return;
     const deltaTime = time - lastTime;
     
     lastTime = time;
@@ -343,7 +353,9 @@ function respawn() {
     minoObject.rotation = 0;
 
     nextMino = getNextMino();
-
+    if(board[0][4] !== 0){ running = false;
+                           overlay.classList.remove('hidden');
+                           ctx.clearRect(0,0,canvas.width,canvas.height);}
     drawNextMino();
 }
 
@@ -376,6 +388,13 @@ function drawNextMino() {
     drawMino(nextCtx, offsetX, offsetY, shape, nextMino);
 }
 
+function changeToHold() {
+    let boardShape = minoObject.type;
+    let hold = MINO[holdMino][0];
+    
+}
+
+
 function clearLine() {
 
     for (let y = ROWS - 1; y >= 0; y--) {
@@ -385,8 +404,6 @@ function clearLine() {
             board.splice(y, 1);
             board.unshift(new Array(COLS).fill(0));
             y++;
-            score = score + 1;
         }
     }
 }
-
